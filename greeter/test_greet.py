@@ -52,3 +52,72 @@ def test_main_help_flag_prints_help(capsys, flag):
 def test_main_help_flag_wins_over_other_args(capsys):
     assert main(["greet.py", "naveeharn", "--help"]) == 0
     assert capsys.readouterr().out.startswith("usage:")
+
+
+def test_greet_shout_uppercases_greeting():
+    assert greet("  naveeharn  ", shout=True) == "HELLO, NAVEEHARN!"
+
+
+def test_greet_shout_rejects_empty_name():
+    with pytest.raises(ValueError):
+        greet("   ", shout=True)
+
+
+@pytest.mark.parametrize(
+    "argv",
+    [["greet.py", "--shout", "naveeharn"], ["greet.py", "naveeharn", "--shout"]],
+)
+def test_main_shout_flag_prints_uppercase(capsys, argv):
+    assert main(argv) == 0
+    out, err = capsys.readouterr()
+    assert out == "HELLO, NAVEEHARN!\n"
+    assert err == ""
+
+
+def test_main_shout_without_name_shows_usage(capsys):
+    assert main(["greet.py", "--shout"]) == 2
+    out, err = capsys.readouterr()
+    assert out == ""
+    assert "usage" in err
+
+
+def test_main_shout_rejects_blank_name(capsys):
+    assert main(["greet.py", "--shout", "  "]) == 2
+    out, err = capsys.readouterr()
+    assert out == ""
+    assert err.strip()
+
+
+def test_main_shout_with_extra_name_shows_usage(capsys):
+    assert main(["greet.py", "--shout", "a", "b"]) == 2
+    out, err = capsys.readouterr()
+    assert out == ""
+    assert "usage" in err
+
+
+def test_main_repeated_shout_flag(capsys):
+    assert main(["greet.py", "--shout", "--shout", "bob"]) == 0
+    assert capsys.readouterr().out == "HELLO, BOB!\n"
+
+
+@pytest.mark.parametrize("flag", ["--shoot", "-s", "--SHOUT"])
+def test_main_rejects_unknown_option(capsys, flag):
+    assert main(["greet.py", flag, "naveeharn"]) == 2
+    out, err = capsys.readouterr()
+    assert out == ""
+    assert f"unknown option: {flag}" in err
+    assert "usage" in err
+
+
+def test_main_rejects_unknown_option_without_shout(capsys):
+    assert main(["greet.py", "--foo"]) == 2
+    out, err = capsys.readouterr()
+    assert out == ""
+    assert "unknown option: --foo" in err
+
+
+def test_main_help_flag_wins_over_shout(capsys):
+    assert main(["greet.py", "--shout", "--help"]) == 0
+    out = capsys.readouterr().out
+    assert out.startswith("usage:")
+    assert "--shout" in out

@@ -28,11 +28,13 @@ the work itself, in a loop:
 ### Try the greeter
 
 ```bash
-python3 greeter/greet.py naveeharn   # -> Hello, naveeharn!
-python3 -m pytest                    # run all tests
+python3 greeter/greet.py naveeharn           # -> Hello, naveeharn!
+python3 greeter/greet.py --shout naveeharn   # -> HELLO, NAVEEHARN!
+python3 -m pytest                            # run all tests
 ```
 
-A missing or blank name prints an error and exits with code `2`.
+A missing or blank name, or an unknown option (any other argument starting
+with `-`), prints an error and exits with code `2`.
 
 ## Tips I'm following
 
