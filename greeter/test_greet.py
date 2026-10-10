@@ -26,12 +26,16 @@ def test_main_prints_greeting(capsys):
 
 def test_main_without_name_shows_usage(capsys):
     assert main(["greet.py"]) == 2
-    assert "usage" in capsys.readouterr().err
+    out, err = capsys.readouterr()
+    assert out == ""
+    assert "usage" in err
 
 
 def test_main_rejects_blank_name(capsys):
     assert main(["greet.py", "  "]) == 2
-    assert capsys.readouterr().err.strip()
+    out, err = capsys.readouterr()
+    assert out == ""
+    assert err.strip()
 
 
 def test_main_does_not_report_print_failure_as_bad_name(monkeypatch):
@@ -97,12 +101,16 @@ def test_main_shout_with_extra_name_shows_usage(capsys):
 
 def test_main_repeated_shout_flag(capsys):
     assert main(["greet.py", "--shout", "--shout", "bob"]) == 0
-    assert capsys.readouterr().out == "HELLO, BOB!\n"
+    out, err = capsys.readouterr()
+    assert out == "HELLO, BOB!\n"
+    assert err == ""
 
 
 @pytest.mark.parametrize("flag", ["--shoot", "-s", "--SHOUT"])
-def test_main_rejects_unknown_option(capsys, flag):
-    assert main(["greet.py", flag, "naveeharn"]) == 2
+@pytest.mark.parametrize("flag_first", [True, False])
+def test_main_rejects_unknown_option(capsys, flag, flag_first):
+    args = [flag, "naveeharn"] if flag_first else ["naveeharn", flag]
+    assert main(["greet.py", *args]) == 2
     out, err = capsys.readouterr()
     assert out == ""
     assert f"unknown option: {flag}" in err
@@ -114,6 +122,13 @@ def test_main_rejects_unknown_option_without_shout(capsys):
     out, err = capsys.readouterr()
     assert out == ""
     assert "unknown option: --foo" in err
+
+
+def test_main_help_flag_wins_over_unknown_option(capsys):
+    assert main(["greet.py", "--foo", "--help"]) == 0
+    out, err = capsys.readouterr()
+    assert out.startswith("usage:")
+    assert err == ""
 
 
 def test_main_help_flag_wins_over_shout(capsys):
