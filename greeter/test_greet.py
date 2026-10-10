@@ -1,3 +1,6 @@
+import io
+import sys
+
 import pytest
 
 from greet import greet, main
@@ -29,3 +32,9 @@ def test_main_without_name_shows_usage(capsys):
 def test_main_rejects_blank_name(capsys):
     assert main(["greet.py", "  "]) == 2
     assert capsys.readouterr().err.strip()
+
+
+def test_main_does_not_report_print_failure_as_bad_name(monkeypatch):
+    monkeypatch.setattr(sys, "stdout", io.TextIOWrapper(io.BytesIO(), encoding="ascii"))
+    with pytest.raises(UnicodeEncodeError):
+        main(["greet.py", "Zo\u00eb"])
