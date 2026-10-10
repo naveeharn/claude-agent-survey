@@ -24,3 +24,8 @@ def test_main_prints_greeting(capsys):
 def test_main_without_name_shows_usage(capsys):
     assert main(["greet.py"]) == 2
     assert "usage" in capsys.readouterr().err
+
+
+def test_main_rejects_blank_name(capsys):
+    assert main(["greet.py", "  "]) == 2
+    assert capsys.readouterr().err.strip()
