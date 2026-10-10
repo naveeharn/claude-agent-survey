@@ -24,6 +24,7 @@ the work itself, in a loop:
 | `greeter/greet.py` | A small CLI that greets someone by name |
 | `greeter/test_greet.py` | pytest tests for the greeter |
 | `CLAUDE.md` | Guidance the agent reads when working in this repo |
+| [`docs/claude-agents-2026.md`](docs/claude-agents-2026.md) | Short survey of what Claude agents can do as of 2026, with sources |
 
 ### Try the greeter
 
@@ -54,5 +55,5 @@ with `-`), prints an error and exits with code `2`.
 ## Next exercises
 
 - [x] Create a small Python script with a test, run it, and commit
-- [ ] Research what Claude agents can do and summarize it here
+- [x] Research what Claude agents can do and summarize it here — see [`docs/claude-agents-2026.md`](docs/claude-agents-2026.md)
 - [x] Fill in `CLAUDE.md` once real code exists
