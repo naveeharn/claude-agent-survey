@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- Run the script: `python3 greeter/greet.py NAME`
+- Run the script: `python3 greeter/greet.py NAME` (`-h`/`--help` prints usage)
 - Run all tests: `python3 -m pytest`
 - Run a single test: `python3 -m pytest greeter/test_greet.py::test_greet_returns_greeting`
 
