@@ -38,3 +38,17 @@ def test_main_does_not_report_print_failure_as_bad_name(monkeypatch):
     monkeypatch.setattr(sys, "stdout", io.TextIOWrapper(io.BytesIO(), encoding="ascii"))
     with pytest.raises(UnicodeEncodeError):
         main(["greet.py", "Zo\u00eb"])
+
+
+@pytest.mark.parametrize("flag", ["-h", "--help"])
+def test_main_help_flag_prints_help(capsys, flag):
+    assert main(["greet.py", flag]) == 0
+    out, err = capsys.readouterr()
+    assert out.startswith("usage:")
+    assert "--help" in out
+    assert err == ""
+
+
+def test_main_help_flag_wins_over_other_args(capsys):
+    assert main(["greet.py", "naveeharn", "--help"]) == 0
+    assert capsys.readouterr().out.startswith("usage:")

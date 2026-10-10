@@ -2,6 +2,21 @@
 
 import sys
 
+USAGE = "usage: python3 greeter/greet.py [-h] NAME"
+HELP = f"""{USAGE}
+
+Print a greeting for NAME.
+
+arguments:
+  NAME        the name to greet (surrounding whitespace is ignored)
+
+options:
+  -h, --help  show this help message and exit
+
+exit codes:
+  0  greeting printed
+  2  missing, extra or blank NAME"""
+
 
 def greet(name: str) -> str:
     name = name.strip()
@@ -11,8 +26,11 @@ def greet(name: str) -> str:
 
 
 def main(argv: list[str]) -> int:
+    if any(arg in ("-h", "--help") for arg in argv[1:]):
+        print(HELP)
+        return 0
     if len(argv) != 2:
-        print("usage: python3 greeter/greet.py NAME", file=sys.stderr)
+        print(USAGE, file=sys.stderr)
         return 2
     try:
         greeting = greet(argv[1])
