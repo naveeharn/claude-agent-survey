@@ -29,7 +29,11 @@ reviewing — review it with fresh eyes and do not assume the author's intent wa
 Label every finding as one of:
 
 - **bug** — wrong behavior, crash, failing test, or missing test for new behavior. Must be fixed.
-- **nit** — style, naming, or optional improvement. Fixing is optional.
+- **nit (fix)** — optional, but quick to do *and* makes the code clearer or the tests stronger.
+- **nit (skip)** — a matter of taste (naming, wording, formatting) with no real gain. Listed for the record only.
+
+Keep nits few and worthwhile. Do not invent findings to fill the report — "no findings" is a valid result.
+On a re-review, focus on what changed since the last round; do not re-raise nits that were already skipped.
 
 For each finding give: label, file and line, what is wrong, and a suggested fix.
 

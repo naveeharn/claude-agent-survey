@@ -23,6 +23,8 @@ Follow these steps for every change unless the user says otherwise.
 4. **Run tests** — `python3 -m pytest` must pass before moving on.
 5. **Review with the `code-reviewer` subagent** — defined in `.claude/agents/code-reviewer.md`. It checks correctness, edge cases, exit codes, stdout/stderr and test coverage, and labels each finding **bug** (must fix) or **nit** (optional).
 6. **Fix loop** — fix every **bug**, re-run the tests, and send the changes back to the reviewer. **Max 3 review rounds.** If bugs remain after round 3, stop and report to the user instead of opening a PR.
+   - **Nits:** fix a nit only if it is quick *and* improves clarity or test coverage (the reviewer marks these `nit (fix)`). Skip `nit (skip)` items — matters of taste such as naming or wording — and list them in the PR description.
+   - **Do not start a new review round for nits alone.** If the only changes since the last review are nit fixes, re-run the tests and move on to the PR. Do not ask the user about nits; decide using this rule.
 7. **Update docs** — update the Commands/Architecture sections above and `README.md` if usage changed.
 8. **Push and open a PR** — only when the review has no remaining bugs and all tests pass. The PR description must include:
    - a short summary of the change
