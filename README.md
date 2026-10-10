@@ -17,6 +17,23 @@ the work itself, in a loop:
 3. **Check** – It verifies the result (runs tests, reads errors) and fixes problems.
 4. **Report** – It hands back the finished work and a short summary.
 
+## Project contents
+
+| Path | What it is |
+|------|------------|
+| `greeter/greet.py` | A small CLI that greets someone by name |
+| `greeter/test_greet.py` | pytest tests for the greeter |
+| `CLAUDE.md` | Guidance the agent reads when working in this repo |
+
+### Try the greeter
+
+```bash
+python3 greeter/greet.py naveeharn   # -> Hello, naveeharn!
+python3 -m pytest                    # run all tests
+```
+
+A missing or blank name prints an error and exits with code `2`.
+
 ## Tips I'm following
 
 - Say what "done" looks like, not just the topic.
@@ -30,9 +47,10 @@ the work itself, in a loop:
 | # | Exercise | What I learned |
 |---|----------|----------------|
 | 1 | Asked Claude to write this README and commit it | An agent can edit files and run git on my machine from a single request |
+| 2 | Built a greet script with tests, on a branch merged via PR #1 | Work on a branch, review in a PR, iterate (blank-name bug fix, move into `greeter/`), then merge |
 
 ## Next exercises
 
-- [ ] Create a small Python script with a test, run it, and commit
+- [x] Create a small Python script with a test, run it, and commit
 - [ ] Research what Claude agents can do and summarize it here
-- [ ] Fill in `CLAUDE.md` once real code exists
+- [x] Fill in `CLAUDE.md` once real code exists
