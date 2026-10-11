@@ -18,5 +18,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 For every new feature or bug fix, unless the user says otherwise, follow the
 `feature-workflow` skill (`.claude/skills/feature-workflow/SKILL.md`). In short:
 branch off an up-to-date `main` → clarify "done" → implement with tests → `python3 -m pytest`
-→ review with the `code-reviewer` subagent (max 3 rounds; fix every bug, nits per the skill)
+→ review with the `code-reviewer` subagent (max 3 rounds; fix every bug, nits per the skill;
+if bugs remain after round 3, stop and report instead of opening a PR)
 → update docs → push and open a PR → stop at the PR (never merge).
