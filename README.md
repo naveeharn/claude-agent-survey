@@ -24,6 +24,7 @@ the work itself, in a loop:
 | `greeter/greet.py` | A small CLI that greets someone by name |
 | `greeter/test_greet.py` | pytest tests for the greeter |
 | `CLAUDE.md` | Guidance the agent reads when working in this repo |
+| `.claude/skills/feature-workflow/` | Skill with the branch → test → review → PR workflow for every change |
 | [`docs/claude-agents-2026.md`](docs/claude-agents-2026.md) | Short survey of what Claude agents can do as of 2026, with sources |
 
 ### Try the greeter
